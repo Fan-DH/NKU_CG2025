@@ -1,0 +1,116 @@
+Begin Material
+
+Material White
+Prop diffuseColor RGB 0.73 0.73 0.73
+
+Material Red
+Prop diffuseColor RGB 0.65 0.05 0.05
+
+Material Green
+Prop diffuseColor RGB 0.12 0.45 0.15
+
+Material Tin 2
+Prop albedo    RGB 0.800 0.830 0.850
+Prop metallic  Float 1.0
+Prop roughness Float 0.20
+
+Material Iron 2
+Prop albedo    RGB 0.560 0.570 0.580
+Prop metallic  Float 1.0
+Prop roughness Float 0.30
+
+Material Carbon 2
+Prop albedo    RGB 0.050 0.050 0.050
+Prop metallic  Float 0.0
+Prop roughness Float 0.60
+
+Material Copper 2
+Prop albedo    RGB 0.980 0.550 0.400
+Prop metallic  Float 1.0
+Prop roughness Float 0.12
+
+End
+
+# ----------------- 墙体 -----------------
+Begin Model
+
+Model Wall
+Translation 0.0 0.0 1028.0
+
+Plane LeftWall Red
+N  -1.0 0.0 0.0
+P 278.0 278.0 278.0
+U 0 -556.0 0
+V 0 0 -556.0
+
+Plane RightWall Green
+N 1.0 0.0 0.0
+P -278.0 278.0 278
+U 0 -556 0
+V 0 0 -556.0
+
+Plane TopWall White
+N 0.0 -1.0 0.0
+P 278.0 278.0 278
+U -556 0 0
+V 0 0 -556
+
+Plane BottomWall White
+N 0.0 1.0 0.0
+P 278.0 -278.0 278
+U -556 0 0
+V 0 0 -556
+
+Plane BackWall White
+N 0.0 0.0 -1.0
+P 278.0 278.0 278
+U -556 0 0
+V 0 -556 0
+
+End
+
+# ----------------- 球体 -----------------
+Begin Model
+Model Sphere1
+Translation -200 -228 1100
+Sphere Sphere1 Tin
+N 0 0 1
+P 0 0 0
+R 50
+End
+
+Begin Model
+Model Sphere2
+Translation -66 -228 1100
+Sphere Sphere2 Iron
+N 0 0 1
+P 0 0 0
+R 50
+End
+
+Begin Model
+Model Sphere3
+Translation 66 -228 1100
+Sphere Sphere3 Carbon
+N 0 0 1
+P 0 0 0
+R 50
+End
+
+Begin Model
+Model Sphere4
+Translation 200 -228 1100
+Sphere Sphere4 Copper
+N 0 0 1
+P 0 0 0
+R 50
+End
+
+# ----------------- 光源 -----------------
+Begin Light
+
+Point TopLight
+IRV 1.0 1.0 1.0
+P 0 273 1028
+
+End
