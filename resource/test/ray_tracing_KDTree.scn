@@ -1,0 +1,154 @@
+Begin Material
+
+Material White
+
+Prop diffuseColor RGB 0.4 0.4 0.4
+
+Material Red
+
+Prop diffuseColor RGB 0.63 0.065, 0.05
+
+Material Blue
+
+Prop diffuseColor RGB 0.0 0.0 0.5
+
+Material Glass 2
+Prop ior Float 1.5
+Prop absorbed RGB 0.95 0.98 0.99
+Prop specularColor RGB 0.9 0.9 0.9
+Prop specularEx Float 64.0
+
+Material Mirror 3
+Prop reflect RGB 1.0 1.0 1.0
+Prop diffuseColor RGB 0.0 0.0 0.0
+Prop specularColor RGB 0.0 0.0 0.0
+
+End
+
+Begin Model
+
+Model Wall
+Translation 0.0 0.0 1028.0
+
+Plane LeftWall Blue
+N  -1.0 0.0 0.0
+P 278.0 278.0 278.0
+U 0 -556.0 0
+V 0 0 -556.0
+
+Plane RightWall Red
+N 1.0 0.0 0.0
+P -278.0 278.0 278
+U 0 -556 0
+V 0 0 -556.0
+
+Plane TopWall White
+N 0.0 -1.0 0.0
+P 278.0 278.0 278
+U -556 0 0
+V 0 0 -556
+
+Plane BottomWall White
+N 0.0 1.0 0.0
+P 278.0 -278.0 278
+U -556 0 0
+V 0 0 -556
+
+Plane BackWall White
+N 0.0 0.0 -1.0
+P 278.0 278.0 278
+U -556 0 0
+V 0 -556 0
+
+End
+
+Begin Model
+Model Sphere1
+Translation -150 -203 950
+Sphere Sphere1 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere2
+Translation 0 -203 950
+Sphere Sphere2 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere3
+Translation 150 -203 950
+Sphere Sphere3 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere4
+Translation -150 -53 950
+Sphere Sphere4 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere5
+Translation 0 -53 950
+Sphere Sphere5 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere6
+Translation 150 -53 950
+Sphere Sphere6 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere7
+Translation -150 97 950
+Sphere Sphere7 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere8
+Translation 0 97 950
+Sphere Sphere8 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Model
+Model Sphere9
+Translation 150 97 950
+Sphere Sphere9 Mirror
+N 0 0 1
+P 0 0 0
+R 75
+End
+
+Begin Light
+
+Area TopLight
+IRV 100 80 60
+P 60 270 920
+U -120 0 0
+V 0 0 -120
+
+End

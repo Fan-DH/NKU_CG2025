@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef __SCATTERED_HPP__
 #define __SCATTERED_HPP__
 
@@ -7,15 +7,15 @@
 namespace SimplePathTracer
 {
     /**
-     * É¢ÉäĞÅÏ¢½á¹¹Ìå
-     * ¼ÇÂ¼¹âÏßÓë²ÄÖÊ½»»¥ºóµÄÉ¢ÉäĞÅÏ¢
+     * æ•£å°„ä¿¡æ¯ç»“æ„ä½“
+     * è®°å½•å…‰çº¿ä¸æè´¨äº¤äº’åçš„æ•£å°„ä¿¡æ¯
      */
     struct Scattered
     {
-        Ray ray = {};           // É¢ÉäºóµÄ¹âÏß·½Ïò
-        Vec3 attenuation = {};  // Ë¥¼õÏµÊı£¨BRDF£©
-        Vec3 emitted = {};      // ×Ô·¢¹âÇ¿¶È
-        float pdf = {0.f};      // ¸ÅÂÊÃÜ¶Èº¯ÊıÖµ
+        Ray ray = {};           // æ•£å°„åçš„å…‰çº¿æ–¹å‘
+        Vec3 attenuation = {};  // è¡°å‡ç³»æ•°ï¼ˆBRDFï¼‰
+        Vec3 emitted = {};      // è‡ªå‘å…‰å¼ºåº¦
+        float pdf = {0.f};      // æ¦‚ç‡å¯†åº¦å‡½æ•°å€¼
     };
     
 }

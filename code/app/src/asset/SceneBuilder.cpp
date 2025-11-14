@@ -1,25 +1,26 @@
-#include "asset/SceneBuilder.hpp"
+ï»¿#include "asset/SceneBuilder.hpp"
 
-// ³¡¾°¹¹½¨Æ÷ÊµÏÖÎÄ¼þ
-// ¸ºÔð½«×Ê²ú¹ÜÀíÆ÷ÖÐµÄÊý¾Ý¹¹½¨³ÉäÖÈ¾³¡¾°
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ä¼ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½
 
 namespace NRenderer
 {
-    // ¹¹½¨äÖÈ¾Ñ¡Ïî
-    // ÉèÖÃäÖÈ¾Éî¶È¡¢²ÉÑùÊý¡¢·Ö±æÂÊµÈ²ÎÊý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾Ñ¡ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ÊµÈ²ï¿½ï¿½ï¿½
     void SceneBuilder::buildRenderOption() {
         RenderOption ro;
-        ro.depth = renderSettings.depth;                    // ¹âÏß×·×ÙÉî¶È
-        ro.samplesPerPixel = renderSettings.samplesPerPixel;  // Ã¿ÏñËØ²ÉÑùÊý
-        ro.width = renderSettings.width;                    // äÖÈ¾¿í¶È
-        ro.height = renderSettings.height;                  // äÖÈ¾¸ß¶È
+        ro.depth = renderSettings.depth;                    // ï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½
+        ro.samplesPerPixel = renderSettings.samplesPerPixel;  // Ã¿ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½
+        ro.width = renderSettings.width;                    // ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½
+        ro.height = renderSettings.height;                  // ï¿½ï¿½È¾ï¿½ß¶ï¿½
+        ro.useKDTree = renderSettings.useKDTree;            // KD-Tree åŠ é€Ÿå¼€å…³ï¼ˆä»… RayTracing æœ‰æ•ˆï¼‰
         this->scene->renderOption = ro;
     }
 
-    // ¹¹½¨³¡¾°»º³åÇø
-    // ½«ËùÓÐ×Ê²úÊý¾Ý¸´ÖÆµ½³¡¾°ÖÐ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     void SceneBuilder::buildBuffer() {
-        // ¸´ÖÆ²ÄÖÊ¡¢ÎÆÀíºÍÄ£ÐÍÊý¾Ý
+        // ï¿½ï¿½ï¿½Æ²ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (auto& mi : asset.materialItems) {
             this->scene->materials.push_back(*mi.material);
         }
@@ -30,7 +31,7 @@ namespace NRenderer
             this->scene->models.push_back(*mi.model);
         }
 
-        // ¸´ÖÆ½ÚµãÊý¾Ý²¢¼ì²é²ÄÖÊÓÐÐ§ÐÔ
+        // ï¿½ï¿½ï¿½Æ½Úµï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
         for (auto& ni : asset.nodeItems) {
             this->scene->nodes.push_back(*ni.node);
             if (ni.node->type == Node::Type::SPHERE) {
@@ -63,12 +64,12 @@ namespace NRenderer
             }
         }
 
-        // ¸´ÖÆ¹âÔ´Êý¾Ý
+        // ï¿½ï¿½ï¿½Æ¹ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
         for (auto& li : asset.lightItems) {
             this->scene->lights.push_back(*li.light);
         }
 
-        // ¸´ÖÆ¼¸ºÎÌåÊý¾Ý
+        // ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (auto& s : asset.spheres) {
             this->scene->sphereBuffer.push_back(*s);
         }
@@ -82,7 +83,7 @@ namespace NRenderer
             this->scene->meshBuffer.push_back(*m);
         }
 
-        // ¸´ÖÆ¸÷Àà¹âÔ´Êý¾Ý
+        // ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
         for (auto& p : asset.pointLights) {
             this->scene->pointLightBuffer.push_back(*p);
         }
@@ -97,36 +98,36 @@ namespace NRenderer
         }
     }
 
-    // ¹¹½¨Ïà»ú
-    // ½«Ïà»úÉèÖÃ¸´ÖÆµ½³¡¾°ÖÐ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     void SceneBuilder::buildCamera() {
         this->scene->camera = this->camera;
     }
 
-    // ¹¹½¨»·¾³¹â
-    // ÉèÖÃ»·¾³¹âÀàÐÍºÍ²ÎÊý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍºÍ²ï¿½ï¿½ï¿½
     void SceneBuilder::buildAmbient() {
-        this->scene->ambient.constant = ambientSettings.ambient;          // »·¾³¹â³£Á¿
-        this->scene->ambient.environmentMap = ambientSettings.mapTexture;  // »·¾³ÌùÍ¼
+        this->scene->ambient.constant = ambientSettings.ambient;          // ï¿½ï¿½ï¿½ï¿½ï¿½â³£ï¿½ï¿½
+        this->scene->ambient.environmentMap = ambientSettings.mapTexture;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
         if (ambientSettings.type == AmbientSettings::Type::CONSTANT) {
-            this->scene->ambient.type = Ambient::Type::CONSTANT;          // ³£Á¿»·¾³¹â
+            this->scene->ambient.type = Ambient::Type::CONSTANT;          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         else {
-            this->scene->ambient.type = Ambient::Type::ENVIROMENT_MAP;    // »·¾³ÌùÍ¼¹âÕÕ
+            this->scene->ambient.type = Ambient::Type::ENVIROMENT_MAP;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // ¹¹½¨ÍêÕû³¡¾°
-    // ·µ»Ø¹¹½¨ºÃµÄ³¡¾°¶ÔÏó
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ÃµÄ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     SharedScene SceneBuilder::build() {
-        this->scene = make_shared<Scene>();  // ´´½¨ÐÂ³¡¾°
-        this->buildRenderOption();           // ¹¹½¨äÖÈ¾Ñ¡Ïî
-        this->buildCamera();                 // ¹¹½¨Ïà»ú
-        this->buildBuffer();                 // ¹¹½¨³¡¾°»º³åÇø
-        this->buildAmbient();               // ¹¹½¨»·¾³¹â
+        this->scene = make_shared<Scene>();  // ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½ï¿½ï¿½
+        this->buildRenderOption();           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾Ñ¡ï¿½ï¿½
+        this->buildCamera();                 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        this->buildBuffer();                 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        this->buildAmbient();               // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (success)
-            return this->scene;              // ¹¹½¨³É¹¦·µ»Ø³¡¾°
+            return this->scene;              // ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½
         else 
-            return nullptr;                  // ¹¹½¨Ê§°Ü·µ»Ø¿Õ
+            return nullptr;                  // ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü·ï¿½ï¿½Ø¿ï¿½
     }
 }

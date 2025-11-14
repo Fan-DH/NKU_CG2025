@@ -14,9 +14,14 @@ Prop diffuseColor RGB 0.3 0.4 0.5
 Prop specularColor RGB 1 1 1
 Prop specularEx Float 10
 
-Material CookTorrance 2
+Material CookTorrance1 2
 Prop albedo    RGB 0.300 0.400 0.500
 Prop metallic  Float 0.0
+Prop roughness Float 0.41
+
+Material CookTorrance2 2
+Prop albedo    RGB 0.300 0.400 0.500
+Prop metallic  Float 1.0
 Prop roughness Float 0.41
 
 End
@@ -61,25 +66,30 @@ End
 
 # ----------------- 球体 -----------------
 Begin Model
-
 Model Sphere1
-Translation -100 -228 1100
+Translation -150 -228 1100
 Sphere Sphere1 Phong
 N 0 0 1
 P 0 0 0
 R 50
-
 End
 
 Begin Model
-
-Model Sphere3
-Translation 100 -228 1100
-Sphere Sphere3 CookTorrance
+Model Sphere2
+Translation 0 -228 1100
+Sphere Sphere2 CookTorrance1
 N 0 0 1
 P 0 0 0
 R 50
+End
 
+Begin Model
+Model Sphere3
+Translation 150 -228 1100
+Sphere Sphere3 CookTorrance2
+N 0 0 1
+P 0 0 0
+R 50
 End
 
 # ----------------- 光源 -----------------

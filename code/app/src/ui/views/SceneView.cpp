@@ -1,70 +1,72 @@
-#include "ui/views/SceneView.hpp"
+ï»¿#include "ui/views/SceneView.hpp"
 #include "asset/SceneBuilder.hpp"
 
-// ³¡¾°ÊÓÍ¼ÊµÏÖÎÄ¼þ
-// ÊµÏÖÁË³¡¾°ÉèÖÃ½çÃæµÄ¹¦ÄÜ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Êµï¿½ï¿½ï¿½Ä¼ï¿½
+// Êµï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
 
 namespace NRenderer
 {
-    // ¹¹Ôìº¯Êý
-    // ³õÊ¼»¯³¡¾°ÊÓÍ¼
+    // ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     SceneView::SceneView(const Vec2& position, const Vec2& size, UIContext& uiContext, Manager& manager)
-        : View                  (position, size, uiContext, manager)  // µ÷ÓÃ»ùÀà¹¹Ôìº¯Êý
-        , currComponentSelected (-1)                                  // ³õÊ¼»¯µ±Ç°Ñ¡ÖÐ×é¼þÎª-1
+        : View                  (position, size, uiContext, manager)  // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½à¹¹ï¿½ìº¯ï¿½ï¿½
+        , currComponentSelected (-1)                                  // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Îª-1
     {
     }
 
-    // ¿ªÊ¼»æÖÆ³¡¾°ÉèÖÃ´°¿Ú
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½
     void SceneView::drawBeginWindow() {
-        ImGui::Begin("Render Settings", nullptr, windowFlag);  // ´´½¨äÖÈ¾ÉèÖÃ´°¿Ú
+        ImGui::Begin("Render Settings", nullptr, windowFlag);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½
     }
 
-    // »æÖÆ³¡¾°ÉèÖÃ½çÃæ
+    // ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
     void SceneView::draw() {
-        cameraSetting();     // Ïà»úÉèÖÃ
-        ImGui::Separator();  // ·Ö¸ôÏß
-        renderSetting();     // äÖÈ¾ÉèÖÃ
-        ImGui::Separator();  // ·Ö¸ôÏß
-        ambientSetting();    // »·¾³¹âÉèÖÃ
-        ImGui::Separator();  // ·Ö¸ôÏß
-        componentSetting();  // ×é¼þÉèÖÃ
+        cameraSetting();     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        ImGui::Separator();  // ï¿½Ö¸ï¿½ï¿½ï¿½
+        renderSetting();     // ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½
+        ImGui::Separator();  // ï¿½Ö¸ï¿½ï¿½ï¿½
+        ambientSetting();    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        ImGui::Separator();  // ï¿½Ö¸ï¿½ï¿½ï¿½
+        componentSetting();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
-    // Ïà»úÉèÖÃ½çÃæ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
     void SceneView::cameraSetting() {
         auto& camera = manager.renderSettingsManager.camera;
         ImGui::TextUnformatted("Camera:");
-        float floatStep = 0.1;  // ¸¡µãÊýµ÷Õû²½³¤
+        float floatStep = 0.1;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // Ïà»ú²ÎÊýÊäÈë
-        ImGui::InputFloat3("Position", &camera.position.x);        // Ïà»úÎ»ÖÃ
-        ImGui::InputFloat3("Up", &camera.up.x);                   // ÉÏ·½Ïò
-        ImGui::InputFloat3("LookAt", &camera.lookAt.x);           // ¹Û²ìµã
-        ImGui::InputScalar("Fov", ImGuiDataType_Float, &camera.fov, &floatStep, NULL);                  // ÊÓ³¡½Ç
-        ImGui::InputScalar("Aspect", ImGuiDataType_Float, &camera.aspect, &floatStep, NULL);            // ¿í¸ß±È
-        ImGui::InputScalar("Aperture", ImGuiDataType_Float, &camera.aperture, &floatStep, NULL);        // ¹âÈ¦´óÐ¡
-        ImGui::InputScalar("FocusDistance", ImGuiDataType_Float, &camera.focusDistance, &floatStep, NULL);  // ½¹¾à
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        ImGui::InputFloat3("Position", &camera.position.x);        // ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+        ImGui::InputFloat3("Up", &camera.up.x);                   // ï¿½Ï·ï¿½ï¿½ï¿½
+        ImGui::InputFloat3("LookAt", &camera.lookAt.x);           // ï¿½Û²ï¿½ï¿½
+        ImGui::InputScalar("Fov", ImGuiDataType_Float, &camera.fov, &floatStep, NULL);                  // ï¿½Ó³ï¿½ï¿½ï¿½
+        ImGui::InputScalar("Aspect", ImGuiDataType_Float, &camera.aspect, &floatStep, NULL);            // ï¿½ï¿½ï¿½ß±ï¿½
+        ImGui::InputScalar("Aperture", ImGuiDataType_Float, &camera.aperture, &floatStep, NULL);        // ï¿½ï¿½È¦ï¿½ï¿½Ð¡
+        ImGui::InputScalar("FocusDistance", ImGuiDataType_Float, &camera.focusDistance, &floatStep, NULL);  // ï¿½ï¿½ï¿½ï¿½
     }
 
-    // äÖÈ¾ÉèÖÃ½çÃæ
+    // ï¿½ï¿½È¾ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
     void SceneView::renderSetting() {
-        int intStep = 1;  // ÕûÊýµ÷Õû²½³¤
+        int intStep = 1;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         auto& rs = manager.renderSettingsManager.renderSettings;
         ImGui::TextUnformatted("Render Settings:");
 
-        // äÖÈ¾²ÎÊýÊäÈë
-        ImGui::InputScalar("Width", ImGuiDataType_U32, &rs.width, &intStep, NULL, "%u");            // äÖÈ¾¿í¶È
-        ImGui::InputScalar("Height", ImGuiDataType_U32, &rs.height, &intStep, NULL, "%u");          // äÖÈ¾¸ß¶È
-        ImGui::InputScalar("Depth", ImGuiDataType_U32, &rs.depth, &intStep, NULL, "%u");            // ¹âÏß×·×ÙÉî¶È
-        ImGui::InputScalar("Sample Nums", ImGuiDataType_U32, &rs.samplesPerPixel, &intStep, NULL, "%u");  // ²ÉÑùÊýÁ¿
+        // ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        ImGui::InputScalar("Width", ImGuiDataType_U32, &rs.width, &intStep, NULL, "%u");            // ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½
+        ImGui::InputScalar("Height", ImGuiDataType_U32, &rs.height, &intStep, NULL, "%u");          // ï¿½ï¿½È¾ï¿½ß¶ï¿½
+        ImGui::InputScalar("Depth", ImGuiDataType_U32, &rs.depth, &intStep, NULL, "%u");            // ï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½
+        ImGui::InputScalar("Sample Nums", ImGuiDataType_U32, &rs.samplesPerPixel, &intStep, NULL, "%u");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // KD-Tree åŠ é€Ÿï¼ˆä»… RayTracing æœ‰æ•ˆï¼‰
+        ImGui::Checkbox("KD-Tree (RayTracing only)", &rs.useKDTree);
     }
 
-    // »·¾³¹âÉèÖÃ½çÃæ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
     void SceneView::ambientSetting() {
         auto& as = manager.renderSettingsManager.ambientSettings;
         ImGui::TextUnformatted("Ambient:");
 
-        // »·¾³¹âÀàÐÍÑ¡Ôñ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
         const string typeStr[2] = {"Constant", "Environment Map"};
         int curr = as.type == AmbientSettings::Type::CONSTANT ? 0 : 1;
         if(ImGui::BeginCombo("Type##AmbientSettings", typeStr[curr].c_str())) {
@@ -78,13 +80,13 @@ namespace NRenderer
             ImGui::EndCombo();
         }
 
-        // ¸ù¾Ý»·¾³¹âÀàÐÍÏÔÊ¾²»Í¬ÉèÖÃ
+        // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½
         if (curr == 0) {
-            // ³£Á¿»·¾³¹âÉèÖÃ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             ImGui::ColorEdit3("Ambient", &as.ambient.r, ImGuiColorEditFlags_Float);
         }
         else if (curr == 1) {
-            // »·¾³ÌùÍ¼ÉèÖÃ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
             auto& v = as.mapTexture;
             if (ImGui::BeginCombo("Map Texture##AmbientEMAPTex", v.valid()? manager.assetManager.asset.textureItems[v.index()].name.c_str() : "")) {
                 for (int i=0; i < manager.assetManager.asset.textureItems.size(); i++) {
@@ -98,16 +100,16 @@ namespace NRenderer
         }
     }
 
-    // äÖÈ¾×é¼þÉèÖÃ½çÃæ
+    // ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½
     void SceneView::componentSetting() {
         ImGui::TextUnformatted("Render Component:");
 
-        // »ñÈ¡¿ÉÓÃµÄäÖÈ¾×é¼þÁÐ±í
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
         auto&& components = getServer().componentFactory.getComponentsInfo("Render");
         auto& componentManager = manager.componentManager;
         auto& state = uiContext.state;
 
-        // äÖÈ¾×é¼þÑ¡ÔñÏÂÀ­¿ò
+        // ï¿½ï¿½È¾ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         string comboPre = currComponentSelected != -1 && currComponentSelected < components.size() ?
             components[currComponentSelected].name : "";
         if (ImGui::BeginCombo("Render Component##SceneView", comboPre.c_str())) {
@@ -120,21 +122,21 @@ namespace NRenderer
             ImGui::EndCombo();
         }
 
-        // ÏÔÊ¾Ñ¡ÖÐ×é¼þµÄÃèÊö
+        // ï¿½ï¿½Ê¾Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (currComponentSelected != -1 && currComponentSelected < components.size()) {
             ImGui::TextWrapped(components[currComponentSelected].description.c_str());
         }
 
-        // äÖÈ¾°´Å¥
+        // ï¿½ï¿½È¾ï¿½ï¿½Å¥
         if (ImGui::Button("Render")) {
             if (currComponentSelected != -1 && currComponentSelected < components.size()) {
-                // ´´½¨³¡¾°²¢Ö´ÐÐäÖÈ¾
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½È¾
                 auto& rs = manager.renderSettingsManager;
                 SceneBuilder sceneBuilder{manager.assetManager.asset, rs.renderSettings, rs.ambientSettings, rs.camera};
                 componentManager.exec<RenderComponent>(components[currComponentSelected], sceneBuilder.build());
             }
             else {
-                getServer().logger.error("No render component is selected!");  // Î´Ñ¡ÔñäÖÈ¾×é¼þÊ±ÏÔÊ¾´íÎó
+                getServer().logger.error("No render component is selected!");  // Î´Ñ¡ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
             }
         }
     }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __NR_RENDER_SETTINGS_MANAGER_HPP__
 #define __NR_RENDER_SETTINGS_MANAGER_HPP__
 
@@ -12,11 +12,13 @@ namespace NRenderer
         unsigned int height;
         unsigned int depth;
         unsigned int samplesPerPixel;
+        bool useKDTree; // RayTracing only: enable KD-Tree acceleration
         RenderSettings()
             : width             (500)
             , height            (500)
             , depth             (4)
             , samplesPerPixel   (16)
+            , useKDTree         (false)
         {}
     };
     struct AmbientSettings
