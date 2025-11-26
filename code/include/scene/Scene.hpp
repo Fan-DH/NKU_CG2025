@@ -17,12 +17,18 @@ namespace NRenderer
         unsigned int depth;
         unsigned int samplesPerPixel;
         bool useKDTree;
+        bool visualizePhotonMap;
+        unsigned int photonCount;
+        unsigned int photonGatherK;
         RenderOption()
             : width             (500)
             , height            (500)
             , depth             (4)
             , samplesPerPixel   (16)
             , useKDTree         (false)
+            , visualizePhotonMap(false)
+            , photonCount       (50000)
+            , photonGatherK     (100)
         {}
     };
 

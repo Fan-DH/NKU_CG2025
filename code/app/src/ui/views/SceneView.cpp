@@ -57,8 +57,6 @@ namespace NRenderer
         ImGui::InputScalar("Height", ImGuiDataType_U32, &rs.height, &intStep, NULL, "%u");          // ��Ⱦ�߶�
         ImGui::InputScalar("Depth", ImGuiDataType_U32, &rs.depth, &intStep, NULL, "%u");            // ����׷�����
         ImGui::InputScalar("Sample Nums", ImGuiDataType_U32, &rs.samplesPerPixel, &intStep, NULL, "%u");  // ��������
-        // KD-Tree 加速（仅 RayTracing 有效）
-        ImGui::Checkbox("KD-Tree (RayTracing only)", &rs.useKDTree);
     }
 
     // ���������ý���
@@ -125,6 +123,16 @@ namespace NRenderer
         // ��ʾѡ�����������
         if (currComponentSelected != -1 && currComponentSelected < components.size()) {
             ImGui::TextWrapped(components[currComponentSelected].description.c_str());
+            if (components[currComponentSelected].name == "RayTracer") {
+                auto& rs = manager.renderSettingsManager.renderSettings;
+                ImGui::Checkbox("KD-Tree", &rs.useKDTree);
+            }
+            if (components[currComponentSelected].name == "PhotonMapping") {
+                ImGui::Checkbox("Visualize Photon Map", &manager.renderSettingsManager.renderSettings.visualizePhotonMap);
+                int intStep = 1;
+                ImGui::InputScalar("Photon Count", ImGuiDataType_U32, &manager.renderSettingsManager.renderSettings.photonCount, &intStep, NULL, "%u");
+                ImGui::InputScalar("KNN N", ImGuiDataType_U32, &manager.renderSettingsManager.renderSettings.photonGatherK, &intStep, NULL, "%u");
+            }
         }
 
         // ��Ⱦ��ť

@@ -13,12 +13,18 @@ namespace NRenderer
         unsigned int depth;
         unsigned int samplesPerPixel;
         bool useKDTree; // RayTracing only: enable KD-Tree acceleration
+        bool visualizePhotonMap;
+        unsigned int photonCount;
+        unsigned int photonGatherK;
         RenderSettings()
             : width             (500)
             , height            (500)
             , depth             (4)
             , samplesPerPixel   (16)
             , useKDTree         (false)
+            , visualizePhotonMap(false)
+            , photonCount       (50000)
+            , photonGatherK     (100)
         {}
     };
     struct AmbientSettings

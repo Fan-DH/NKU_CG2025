@@ -9,11 +9,14 @@ namespace NRenderer
     // ������Ⱦ��ȡ����������ֱ��ʵȲ���
     void SceneBuilder::buildRenderOption() {
         RenderOption ro;
-        ro.depth = renderSettings.depth;                    // ����׷�����
-        ro.samplesPerPixel = renderSettings.samplesPerPixel;  // ÿ���ز�����
-        ro.width = renderSettings.width;                    // ��Ⱦ����
-        ro.height = renderSettings.height;                  // ��Ⱦ�߶�
-        ro.useKDTree = renderSettings.useKDTree;            // KD-Tree 加速开关（仅 RayTracing 有效）
+        ro.depth = renderSettings.depth;
+        ro.samplesPerPixel = renderSettings.samplesPerPixel;
+        ro.width = renderSettings.width;
+        ro.height = renderSettings.height;
+        ro.useKDTree = renderSettings.useKDTree;
+        ro.visualizePhotonMap = renderSettings.visualizePhotonMap;
+        ro.photonCount = renderSettings.photonCount;
+        ro.photonGatherK = renderSettings.photonGatherK;
         this->scene->renderOption = ro;
     }
 
